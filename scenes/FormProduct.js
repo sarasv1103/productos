@@ -1,12 +1,20 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, ImagePickerIOS} from 'react-native';
 import {Form, Item, Input, Image, Button} from 'native-base'
+import { TouchableHighlight } from 'react-native-gesture-handler';
 
-export default class FormComponent extends Component {
+export default class product extends Component {
+    constructor() {
+      super()
 
-    constructor(props) {
-      super(props);
-      this.handleChange= this.handleChange.bind(this);
+      this.state = {
+        "id": "",
+        "name": "",
+        "description": "",
+        "price": "",
+        "stock": "",
+        "code": "",
+      };
     }
 
     handleChoosePhoto = () => {
@@ -23,7 +31,7 @@ export default class FormComponent extends Component {
     }
 
     sendRequest = () => {
-      fetch('/addproduct', {
+      fetch('localhost:400/addproduct', {
         method: 'POST',
         body: JSON.stringify({
           name : this.state.name,
@@ -37,13 +45,13 @@ export default class FormComponent extends Component {
     }
 
     deleteRequest = () => {
-      fetch('/deleteproduct/'+this.state.id, {
+      fetch('localhost:400/deleteproduct/'+this.state.id, {
         method: 'DELETE'
       });
     }
 
     updateRequest = () => {
-      fetch('/updateproduct/'+this.state.id, {
+      fetch('localhost:400/updateproduct/'+this.state.id, {
         method: 'POST',
         body: JSON.stringify({
           name : this.state.name,
@@ -57,7 +65,6 @@ export default class FormComponent extends Component {
     }
 
   render() {
-      const {photo} = this.state;
     return (
       <View style={styles.container}>
         <Text style={styles.formText}>Create product</Text>
@@ -82,16 +89,24 @@ export default class FormComponent extends Component {
             <Input placeholder="Code" onChangeText={(code) => this.setState({code})}/>
           </Item>
           <Item last>
-            <Button title="Choose image" onPress={this.handleChoosePhoto} />
+            <TouchableHighlight title="img" onPress={this.handleChoosePhoto}>
+              <Text>Upload image</Text>
+            </TouchableHighlight>
           </Item>
           <Item last>
-            <Button title="Save" onPress={this.sendRequest} />
+            <TouchableHighlight title="Create" onPress={this.sendRequest}>
+              <Text>Create</Text>
+            </TouchableHighlight>
           </Item>
           <Item last>
-            <Button title="Delete" onPress={this.deleteRequest} />
+            <TouchableHighlight title="Delete" onPress={this.deleteRequest}>
+              <Text>Delete</Text>
+            </TouchableHighlight>
           </Item>
           <Item last>
-            <Button title="Update" onPress={this.updateRequest} />
+            <TouchableHighlight title="Update" onPress={this.updateRequest}>
+              <Text>Update</Text>
+            </TouchableHighlight>
           </Item>
         </Form>
       </View>
