@@ -32,15 +32,16 @@ export default class product extends Component {
     }
 
     sendRequest = () => {
-      fetch(this.state.url+'save', {
+      fetch(this.state.url, {
         method: 'POST',
         body: JSON.stringify({
           name : this.state.name,
           description : this.state.description,
-          image : this.state.photo,
+          "image": "url/imagen/laptop/macx2.jpg",
           price : this.state.price,
           stock : this.state.stock,
-          code  : this.state.code
+          code  : this.state.code,
+          data: "12345"
         })
       });
     }
