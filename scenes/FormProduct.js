@@ -14,6 +14,7 @@ export default class product extends Component {
         "price": "",
         "stock": "",
         "code": "",
+        "url": "https://us-central1-apifunctions.cloudfunctions.net/api/"
       };
     }
 
@@ -31,7 +32,7 @@ export default class product extends Component {
     }
 
     sendRequest = () => {
-      fetch('localhost:400/addproduct', {
+      fetch(this.state.url+'save', {
         method: 'POST',
         body: JSON.stringify({
           name : this.state.name,
@@ -45,13 +46,13 @@ export default class product extends Component {
     }
 
     deleteRequest = () => {
-      fetch('localhost:400/deleteproduct/'+this.state.id, {
+      fetch(this.state.url+'delete/:'+this.state.id, {
         method: 'DELETE'
       });
     }
 
     updateRequest = () => {
-      fetch('localhost:400/updateproduct/'+this.state.id, {
+      fetch(this.state.url+'update/:'+this.state.id, {
         method: 'POST',
         body: JSON.stringify({
           name : this.state.name,
